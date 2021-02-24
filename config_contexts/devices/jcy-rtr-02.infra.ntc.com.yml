@@ -1,0 +1,15 @@
+---
+bgp:
+  asn: 65251
+  log-neighbor-changes: true
+  neighbors:
+  - ip: 10.10.0.9
+    remote-asn: 65251
+  - ip: 10.10.0.14
+    remote-asn: 65251
+  - ip: 10.10.11.10
+    remote-asn: 65250
+  redistribute:
+  - connected
+  rid: 10.0.10.2
+

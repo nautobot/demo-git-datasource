@@ -1,0 +1,31 @@
+---
+_metadata:
+  name: data-models
+  weight: 1000
+  description: Global Definitions.
+  is_active: true
+aaa-new-model: false
+cdp: true
+lldp: true
+ntp:
+- ip: 10.1.1.1
+  prefer: false
+- ip: 10.2.2.2
+  prefer: true
+snmp:
+  community:
+  - name: ntc-public
+    role: RO
+  - name: ntc-private
+    role: RW
+  - name: networktocode
+    role: RO
+  - name: secure
+    role: RW
+  contact: John Smith
+  host:
+  - community: networktocode
+    ip: 10.1.1.1
+    version: 2c
+  location: Network to Code - NYC | NY
+

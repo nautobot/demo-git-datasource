@@ -1,0 +1,10 @@
+bgp:
+  asn: 65252
+  neighbors:
+  - ip: 10.10.0.17
+    remote-asn: 65251
+  - ip: 10.10.0.21
+    remote-asn: 65252
+  - ip: 10.10.0.29
+    remote-asn: 65252
+

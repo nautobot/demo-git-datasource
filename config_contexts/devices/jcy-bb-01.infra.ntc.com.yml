@@ -1,0 +1,21 @@
+---
+acl:
+  definitions: []
+  interfaces:
+    GigabitEthernet2:
+      acl: BLOCK_TRANSIT_LINKS
+      direction: in
+bgp:
+  asn: 65251
+  log-neighbor-changes: true
+  neighbors:
+  - ip: 10.10.0.5
+    remote-asn: 65251
+  - ip: 10.10.0.13
+    remote-asn: 65251
+  - ip: 10.10.0.18
+    remote-asn: 65252
+  redistribute:
+  - connected
+  rid: 10.0.10.3
+

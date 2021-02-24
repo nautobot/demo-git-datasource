@@ -1,0 +1,19 @@
+---
+_metadata:
+  name: junos
+  weight: 1000
+  description: Group Definitions for JUNOS
+  is_active: true
+  platforms:
+  - slug: juniper_junos
+snmp:
+community:
+- name: networktocode
+  role: read-only
+route-maps:
+  send-direct:
+    seq: 1
+    statements:
+    - from protocol direct
+    - then accept
+

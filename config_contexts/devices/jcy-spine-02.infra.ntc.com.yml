@@ -1,0 +1,19 @@
+---
+bgp:
+  asn: 65250
+  log-neighbor-changes: true
+  neighbors:
+  - ip: 10.10.10.5
+    remote-asn: 65250
+  - ip: 10.10.10.9
+    remote-asn: 65250
+  - ip: 10.10.10.13
+    remote-asn: 65250
+  - ip: 10.10.10.17
+    remote-asn: 65250
+  - ip: 10.10.11.9
+    remote-asn: 65251
+  redistribute:
+  - connected
+  rid: 10.0.10.5
+

@@ -1,0 +1,20 @@
+---
+_metadata:
+  name: spine
+  weight: 1000
+  description: Group Definitions for device type SPINE
+  is_active: true
+  device-roles:
+  - slug: spine
+acl:
+  definitions:
+    named:
+      PERMIT_ROUTES:
+      - 10 permit ip any any
+route-maps:
+  PERMIT_CONN_ROUTES:
+    seq: 10
+    statements:
+    - match ip address PERMIT_ROUTES
+    type: permit
+

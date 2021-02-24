@@ -1,0 +1,15 @@
+---
+_metadata:
+  name: eos
+  weight: 1000
+  description: Group Definitions for EOS
+  is_active: true
+  platforms:
+  - slug: arista_eos
+snmp:
+  community:
+  - name: networktocode
+    role: ro
+  - name: secure
+    role: rw
+
