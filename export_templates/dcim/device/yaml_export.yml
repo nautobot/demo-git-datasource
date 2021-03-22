@@ -2,6 +2,7 @@
 {% for device in queryset %}
 {% if device.status %}
 - {{ device.name }}:
+  site: {{ device.site }}
 {% endif %}
 {% endfor %}
 ...
