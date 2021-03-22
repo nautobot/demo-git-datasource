@@ -1,0 +1,6 @@
+{% for device in queryset %}
+{% if device.status and device.primary_ip %}
+Hostname: {{ device.name }}
+IP Address: {{ device.primary_ip.address.ip }}
+{% endif %}
+{% endfor %}
