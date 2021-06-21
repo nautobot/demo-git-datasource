@@ -1,0 +1,25 @@
+---
+acl:
+  definitions: []
+  interfaces:
+    PLACE_HOLDER:
+      acl: BLOCK_TRANSIT_LINKS
+      direction: in
+
+bgp:
+  asn: 65253
+  log-neighbor-changes: true
+  neighbors:
+  - ip: 10.11.11.5
+    remote-asn: 65252
+  - ip: 10.11.11.14
+    remote-asn: 65254
+  - ip: 10.11.11.18
+    remote-asn: 65255
+  redistribute:
+  - connected
+  rid: 10.0.20.4
+routes:
+  static:
+  - ip route 0.0.0.0/0 10.0.0.2
+
