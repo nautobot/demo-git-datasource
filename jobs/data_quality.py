@@ -1,7 +1,12 @@
 import re
-from nautobot.extras.jobs import Job, StringVar, MultiObjectVar
-from nautobot.dcim.models import Device, Site, DeviceRole, DeviceType
+
 from nautobot.circuits.models import Circuit
+from nautobot.dcim.models import Device, DeviceType, Location
+from nautobot.extras.jobs import get_task_logger, Job, StringVar, MultiObjectVar
+from nautobot.extras.models import Role
+
+
+logger = get_task_logger(__name__)
 
 
 name = "Data Quality"
@@ -9,7 +14,7 @@ name = "Data Quality"
 
 def normalize(query_set):
     """Returns a list of names for the log entry
-    
+
     Args:
         query_set: QuerySet object
     """
@@ -22,30 +27,21 @@ def normalize(query_set):
     return ', '.join(list_of_names)
 
 
-def filter_devices(data, log):
-    """Returns a list of devices per filter parameters
-    
-    Args:
-        data: A dictionary from the job input
-        log: The log instance for logs
-    """
-
+def filter_devices(location=None, device_role=None, device_type=None):
+    """Returns a list of devices per filter parameters."""
     devices = Device.objects.all()
 
-    site = data["site"]
-    if site:
-        log(f"Filter sites: {normalize(site)}")
+    if location:
+        logger.debug("Filter locations: %s", normalize(location))
         # *__in enables to pass the query set as a parameter
-        devices = devices.filter(site__in=site)
+        devices = devices.filter(location__in=location)
 
-    device_role = data["device_role"]
     if device_role:
-        log(f"Filter device roles: {normalize(device_role)}")
-        devices = devices.filter(device_role__in=device_role)
+        logger.debug("Filter device roles: %s", normalize(device_role))
+        devices = devices.filter(role__in=device_role)
 
-    device_type = data["device_type"]
     if device_type:
-        log(f"Filter device types: {normalize(device_type)}")
+        logger.debug("Filter device types: %s", normalize(device_type))
         devices = devices.filter(device_type__in=device_type)
 
     return devices
@@ -53,12 +49,12 @@ def filter_devices(data, log):
 
 class FormData:
 
-    site = MultiObjectVar(
-        model = Site,
+    location = MultiObjectVar(
+        model = Location,
         required = False,
     )
     device_role = MultiObjectVar(
-        model = DeviceRole,
+        model = Role,
         required = False
     )
     device_type = MultiObjectVar(
@@ -76,7 +72,7 @@ class VerifyHostnames(Job):
         name = "Verify Hostnames"
         description = "Verify device hostnames match corporate standards"
 
-    site = FormData.site
+    location = FormData.location
     device_role = FormData.device_role
     device_type = FormData.device_type
     hostname_regex = StringVar(
@@ -85,16 +81,15 @@ class VerifyHostnames(Job):
         required = True
     )
 
-    def run(self, data=None, commit=None):
+    def run(self, location, device_role, device_type, hostname_regex):
         """Executes the job"""
 
-        regex = data["hostname_regex"]
-        self.log(f"Using the regular expression: {regex}") 
-        for device in filter_devices(data, self.log_debug):
+        logger.info(f"Using the regular expression: %s", hostname_regex)
+        for device in filter_devices(location, device_role, device_type):
             if re.search(regex, device.name):
-                self.log_success(obj=device, message="Hostname is compliant.")
+                logger.info("Hostname is compliant.", extra={"obj": device})
             else:
-                self.log_failure(obj=device, message="Hostname is not compliant.")
+                logger.warning("Hostname is not compliant.", extra={"obj": device})
 
 
 class VerifyPlatform(Job):
@@ -106,18 +101,18 @@ class VerifyPlatform(Job):
         name = "Verify Platform"
         description = "Verify a device has platform defined"
 
-    site = FormData.site
+    location = FormData.location
     device_role = FormData.device_role
     device_type = FormData.device_type
 
-    def run(self, data=None, commit=None):
+    def run(self, location, device_role, device_type):
         """Executes the job"""
 
-        for device in filter_devices(data, self.log_debug):
+        for device in filter_devices(location, device_role, device_type):
             if device.platform:
-                self.log_success(obj=device, message="Platform is defined.")
+                logger.info("Platform is defined.", extra={"obj": device})
             else:
-                self.log_failure(obj=device, message="Platform is not defined.")
+                logger.warning("Platform is not defined.", extra={"obj": device})
 
 
 class VerifyPrimaryIP(Job):
@@ -129,14 +124,14 @@ class VerifyPrimaryIP(Job):
         name = "Verify Primary IP"
         description = "Verify a device has a primary IP defined"
 
-    site = FormData.site
+    location = FormData.location
     device_role = FormData.device_role
     device_type = FormData.device_type
 
-    def run(self, data=None, commit=None):
+    def run(self, location, device_role, device_type):
         """Executes the job"""
 
-        for device in filter_devices(data, self.log_debug):
+        for device in filter_devices(location, device_role, device_type):
 
             # Skip if not master of virtual chassis as only master should have primary IP
             if device.virtual_chassis:
@@ -144,9 +139,9 @@ class VerifyPrimaryIP(Job):
                     continue
 
             if not device.primary_ip:
-                self.log_failure(obj=device, message="No primary IP is defined")
+                logger.warning("No primary IP is defined", extra={"obj": device})
             else:
-                self.log_success(obj=device, message=f"Primary IP is defined ({device.primary_ip})")
+                logger.info("Primary IP is defined (%s)", device.primary_ip, extra={"obj": device})
 
 
 class VerifyHasRack(Job):
@@ -158,18 +153,18 @@ class VerifyHasRack(Job):
         name = "Verify Device Rack"
         description = "Verify a device is inside a rack"
 
-    site = FormData.site
+    location = FormData.location
     device_role = FormData.device_role
     device_type = FormData.device_type
 
-    def run(self, data=None, commit=None):
+    def run(self, location, device_role, device_type):
         """Executes the job"""
 
-        for device in filter_devices(data, self.log_debug):
+        for device in filter_devices(location, device_role, device_type):
             if not device.rack:
-                self.log_failure(obj=device, message="Device is not inside a rack")
+                logger.warning("Device is not inside a rack", extra={"obj": device})
             else:
-                self.log_success(obj=device, message=f"Device is in rack ({device.rack})")
+                logger.info("Device is in rack (%s)", device.rack, extra={"obj": device})
 
 
 class VerifyCircuitTermination(Job):
@@ -182,22 +177,22 @@ class VerifyCircuitTermination(Job):
         description = "Verify a circuit has termination and an IP address"
 
 
-    def run(self, data=None, commit=None):
+    def run(self):
         """Executes the job"""
 
         for circuit in Circuit.objects.all():
             termination = circuit.termination_a
             if not termination.path:
-                self.log_failure(obj=circuit, message="Circuit is not terminated")
+                logger.warning("Circuit is not terminated", extra={"obj": circuit})
                 continue
 
             interface = termination.path.destination.name
             device = termination.path.destination.device.name
-            self.log_success(obj=circuit, message=f"Circuit terminated on {device}:{interface}")
+            logger.info("Circuit terminated on %s:%s", device, interface, extra={"obj": circuit})
 
             ip_addresses = termination.path.destination.ip_addresses.all()
             if not ip_addresses:
-                self.log_failure(obj=circuit, message="IP address is not assigned")
+                logger.warning("IP address is not assigned", extra={"obj": circuit})
                 continue
             first = str(ip_addresses.first().address)
-            self.log_success(obj=circuit, message=f"IP address is assigned ({first})")
+            logger.info("IP address is assigned (%s)", first, extra={"obj": circuit})
