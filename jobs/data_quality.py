@@ -86,7 +86,7 @@ class VerifyHostnames(Job):
 
         logger.info(f"Using the regular expression: %s", hostname_regex)
         for device in filter_devices(location, device_role, device_type):
-            if re.search(regex, device.name):
+            if re.search(hostname_regex, device.name):
                 logger.info("Hostname is compliant.", extra={"obj": device})
             else:
                 logger.warning("Hostname is not compliant.", extra={"obj": device})
