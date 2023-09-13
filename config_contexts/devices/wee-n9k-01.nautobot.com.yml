@@ -1,6 +1,9 @@
 ---
 acl:
-  definitions: []
+  definitions:
+    named:
+      DENY_ALL:
+        - 10 deny ip any any
   interfaces:
     PLACE_HOLDER:
       acl: BLOCK_TRANSIT_LINKS
