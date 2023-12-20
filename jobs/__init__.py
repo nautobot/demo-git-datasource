@@ -1,1 +1,2 @@
-from . import get_device_connection
+# flake8: noqa
+from .get_device_connection import *
