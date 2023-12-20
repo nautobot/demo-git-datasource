@@ -1,6 +1,6 @@
 from nautobot.dcim.choices import DeviceStatusChoices
 from nautobot.dcim.models import ConsolePort, Device, PowerPort
-from nautobot.extras.jobs import Job
+from nautobot.apps.jobs import Job, register_jobs
 
 
 class DeviceConnectionsReport(Job):
@@ -44,3 +44,5 @@ class DeviceConnectionsReport(Job):
                 )
             else:
                 self.log_success(obj=device)
+
+register_jobs(DeviceConnectionsReport)
