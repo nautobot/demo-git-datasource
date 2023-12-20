@@ -4,8 +4,8 @@ _metadata:
   weight: 1000
   description: Group Definitions for device type SPINE
   is_active: true
-  device-roles:
-  - slug: spine
+  roles:
+  - name: spine
 acl:
   definitions:
     named:

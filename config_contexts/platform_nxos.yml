@@ -5,7 +5,7 @@ _metadata:
   description: Group Definitions for NXOS
   is_active: true
   platforms:
-  - slug: cisco_nxos
+  - network_driver: cisco_nxos
 copp-profile: strict
 password-strength-check: false
 snmp:
