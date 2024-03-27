@@ -13,3 +13,11 @@ snmp:
   - name: secure
     role: rw
 
+nautobot_plugin_nornir:
+  connection_options:
+    napalm:
+      extras:
+        optional_args:
+          transport: ssh
+
+
