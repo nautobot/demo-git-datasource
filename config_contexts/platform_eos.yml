@@ -5,7 +5,7 @@ _metadata:
   description: Group Definitions for EOS
   is_active: true
   platforms:
-  - name: arista_eos
+  - name: Arista EOS
 snmp:
   community:
   - name: networktocode
