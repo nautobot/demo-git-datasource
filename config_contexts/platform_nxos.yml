@@ -5,7 +5,7 @@ _metadata:
   description: Group Definitions for NXOS
   is_active: true
   platforms:
-  - name: cisco_nxos
+  - name: Cisco NX-OS
 copp-profile: strict
 password-strength-check: false
 snmp:
