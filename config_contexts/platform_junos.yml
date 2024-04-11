@@ -5,7 +5,7 @@ _metadata:
   description: Group Definitions for JUNOS
   is_active: true
   platforms:
-  - name: juniper_junos
+  - name: Juniper Junos
 snmp:
 community:
 - name: networktocode
