@@ -1,0 +1,20 @@
+---
+bgp:
+  asn: 65253
+  rid: "10.0.20.4"
+
+  redistribute:
+    - type: "connected"
+
+  neighbors:
+    - ip: 10.11.11.5
+      remote-asn: 65252
+    - ip: 10.11.11.14
+      remote-asn: 65254
+    - ip: 10.11.11.18
+      remote-asn: 65255
+
+users:
+  - name: ntc
+    privilege: 15
+    secret: "$6$pE5h.iNjTivxKHaV$TW7CKUWP5YLQANyqliRuumMVLi6lEP7a3kKGv8MWduRTRNoTWSe4jiHRvHxko0UbfiixGCkA.zFaKNfKBdeK./"
