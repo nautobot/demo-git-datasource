@@ -1,0 +1,9 @@
+---
+_metadata:
+  name: Jersey City
+  description: Config parameters for New York City
+  weight: 2000
+  is_active: true
+snmp:
+  location: Network to Code - NYC | NY
+  contact: John Smith
