@@ -1,0 +1,9 @@
+---
+_metadata:
+    name: "Global Parameters"
+    description: "Global Parameters"
+    is_active: True
+aaa-new-model: false
+cdp: true
+lldp: true
+copp-profile: "strict"

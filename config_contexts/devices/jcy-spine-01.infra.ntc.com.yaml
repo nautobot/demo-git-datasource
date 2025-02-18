@@ -1,0 +1,67 @@
+---
+acl:
+  definitions:
+    named:
+      PERMIT_ROUTES:
+        - "10 permit ip any any"
+
+bgp:
+  asn: 65250
+  rid: "10.0.10.4"
+  log-neighbor-changes: true
+
+  redistribute:
+    - type: "direct"
+      route_map: "PERMIT_CONN_ROUTES"
+
+  neighbors:
+    - ip: 10.10.10.6
+      remote-asn: 65250
+    - ip: 10.10.10.10
+      remote-asn: 65250
+    - ip: 10.10.10.14
+      remote-asn: 65250
+    - ip: 10.10.10.18
+      remote-asn: 65250
+    - ip: 10.10.11.5
+      remote-asn: 65251
+
+logging:
+  origin_id: "hostname"
+  hosts:
+    - address: "10.125.1.171"
+      transport: "udp"
+      port: "7008"
+
+route_maps:
+  PERMIT_CONN_ROUTES:
+    seq: 10
+    statements:
+      - "match ip address PERMIT_ROUTES"
+    type: "permit"
+
+users:
+  - name: admin
+    secret: "$5$MDAMMP$QsQ37KtSkR6G.d89nZcod.gboOauSsDyWNvSa.UT0c2"
+    role: "network-admin"
+  - name: ntc
+    secret: "$5$9krxjhcb$COxUm6jsqymMlWNkiSmQwi3CWaebugznSIpYpHvaTW."
+    role: "network-admin"
+    passphrase:
+      lifetime: 99999
+      warntime: 14
+      gracetime: 3
+
+snmp:
+  users:
+    - name: ntc
+      role: network-admin
+      auth: md5
+      auth_key: "0xcd9df62b2a30e7afb5405f264815617c"
+      priv_key: "0xcd9df62b2a30e7afb5405f264815617c"
+    - name: admin
+      role: ""
+      auth: md5
+      auth_key: "0x3c0c5d5139941831378b36418799e1cc"
+      priv_key: "0x3c0c5d5139941831378b36418799e1cc"
+      engine_id: "128:0:0:9:3:82:208:168:0:27:1"

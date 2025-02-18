@@ -1,0 +1,9 @@
+---
+_metadata:
+  name: "Region config options"
+ansible_connection: "network_cli"
+netbox_host: "https://netbox.demo.networktocode.com"
+nautobot_host: "https://nautobot.demo.networktocode.com"
+tower_host: "https://tower.demo.networktocode.com"
+nso_host: "https://nso.demo.networktocode.com"
+servicenow_instance: "dev261076"
