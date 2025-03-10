@@ -1,6 +1,6 @@
 ---
 _metadata:
-  name: jcy
+  name: JCY
   description: Config parameters for Jersey City
   weight: 2000
   is_active: true
