@@ -1,6 +1,6 @@
 ---
 _metadata:
-  name: New York City
+  name: nyc
   description: Config parameters for New York City
   weight: 2000
   is_active: true
