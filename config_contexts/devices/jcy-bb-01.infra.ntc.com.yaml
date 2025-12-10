@@ -1,0 +1,22 @@
+---
+bgp:
+  asn: 65251
+  rid: "10.0.10.3"
+  log-neighbor-changes: true
+
+  redistribute:
+    - "connected"
+
+  neighbors:
+    - ip: 10.10.0.5
+      remote-asn: 65251
+    - ip: 10.10.0.13
+      remote-asn: 65251
+    - ip: 10.10.0.18
+      remote-asn: 65252
+
+acl_map:
+  GigabitEthernet2:
+    ipv4:
+      in: "BLOCK_TRANSIT_LINKS"
+      out:
