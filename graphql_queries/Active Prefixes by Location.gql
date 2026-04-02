@@ -1,0 +1,22 @@
+# Comments are supported but will be removed if you click the Prettify button in GraphiQL
+#
+# The name of the file is used when creating and naming the GraphQL query, as well as tracking changes on subsequent syncs
+# 
+# Query Example:
+#   Given a Location, retrieve all Active Prefixes along their Role
+#
+# Example Payload:
+#   {
+#       "limit": 10,
+#       "offset": 0,
+#       "location": "NYC05"
+#   }
+query ($limit: Int, $offset: Int, $location: [String]) {
+  prefixes(limit: $limit, offset: $offset, location: $location, status: "Active") {
+    network
+    prefix_length
+    role {
+      name
+    }
+  }
+}

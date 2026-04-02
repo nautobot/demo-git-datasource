@@ -1,0 +1,31 @@
+# Comments are supported but will be removed if you click the Prettify button in GraphiQL
+#
+# The name of the file is used when creating and naming the GraphQL query, as well as tracking changes on subsequent syncs
+# 
+# Query Example:
+#   Iterate over 'Branch' Locations, retrieving the address, contact, and rack elevations
+{
+  locations(limit: 10, offset: 0, location_type: "Branch") {
+    name
+    physical_address
+    contact_name
+    racks {
+      name
+      devices {
+        name
+        serial
+        device_type {
+          manufacturer {
+            name
+          }
+          model
+          u_height
+        }
+        primary_ip {
+          address
+        }
+        position
+      }
+    }
+  }
+}
