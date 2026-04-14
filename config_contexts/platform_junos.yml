@@ -16,4 +16,5 @@ route-maps:
     statements:
     - from protocol direct
     - then accept
+config_command: "show configuration | display set"
 
