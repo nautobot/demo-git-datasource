@@ -19,5 +19,7 @@ nautobot_plugin_nornir:
       extras:
         optional_args:
           transport: ssh
-
-
+    pyntc:
+      extras:
+        transport: https
+        port: 443
