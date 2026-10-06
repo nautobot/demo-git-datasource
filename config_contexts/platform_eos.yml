@@ -6,6 +6,7 @@ _metadata:
   is_active: true
   platforms:
   - name: Arista EOS
+  - name: arista_eos
 snmp:
   community:
   - name: networktocode
@@ -23,3 +24,5 @@ nautobot_plugin_nornir:
       extras:
         transport: https
         port: 443
+syslog:
+  port: 7002
