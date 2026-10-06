@@ -6,10 +6,11 @@ _metadata:
   is_active: true
   platforms:
   - name: Juniper Junos
+  - name: juniper_junos
 snmp:
-community:
-- name: networktocode
-  role: read-only
+  community:
+  - name: networktocode
+    role: read-only
 route-maps:
   send-direct:
     seq: 1

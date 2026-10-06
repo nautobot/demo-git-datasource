@@ -6,6 +6,7 @@ _metadata:
   is_active: true
   platforms:
   - name: Cisco NX-OS
+  - name: cisco_nxos
 copp-profile: strict
 password-strength-check: false
 snmp:
@@ -14,4 +15,5 @@ snmp:
     role: network-operator
   - name: secure
     role: network-admin
-
+syslog:
+  port: 7008
