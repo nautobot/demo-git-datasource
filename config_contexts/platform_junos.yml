@@ -1,7 +1,7 @@
 ---
 _metadata:
   name: junos
-  weight: 1000
+  weight: 3000
   description: Group Definitions for JUNOS
   is_active: true
   platforms:
