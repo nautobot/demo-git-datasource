@@ -1,0 +1,18 @@
+---
+_metadata:
+  name: lab-startup
+  weight: 1000
+  description: >-
+    Startup data for the containerlab devices: what the Containerlab Startup Reset job renders
+    from the startup templates and replaces the device configuration with.
+  is_active: true
+  tags:
+  - name: golden_config_demo
+  locations:
+  - name: JCY
+  - name: NYC
+startup:
+  # Local user credentials. The startup templates render placeholders for them that the job fills
+  # in with Golden Config's get_secret_by_secret_group_name filter, so rendered configs never hold
+  # the secrets. It must be the devices' own secrets group.
+  secrets_group: golden-config
