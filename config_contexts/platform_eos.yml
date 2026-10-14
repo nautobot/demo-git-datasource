@@ -7,6 +7,7 @@ _metadata:
   platforms:
   - name: Arista EOS
   - name: arista_eos
+mgmt_gateway: 172.18.0.1
 snmp:
   community:
   - name: networktocode

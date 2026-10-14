@@ -7,5 +7,6 @@ _metadata:
   platforms:
   - name: Cisco IOS
   - name: cisco_ios
+mgmt_gateway: 10.0.0.2
 syslog:
   port: 7004

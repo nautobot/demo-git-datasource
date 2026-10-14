@@ -10,7 +10,4 @@ bgp:
   redistribute:
   - connected
   rid: 10.0.20.7
-routes:
-  static:
-  - ip route 0.0.0.0/0 172.18.0.1
 

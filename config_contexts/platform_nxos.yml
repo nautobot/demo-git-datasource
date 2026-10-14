@@ -8,6 +8,7 @@ _metadata:
   - name: Cisco NX-OS
   - name: cisco_nxos
 copp-profile: strict
+mgmt_gateway: 10.0.0.2
 password-strength-check: false
 snmp:
   community:
