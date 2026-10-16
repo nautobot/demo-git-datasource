@@ -2,8 +2,10 @@
 _metadata:
   name: JCY
   description: Config parameters for Jersey City
-  weight: 2000
+  weight: 3000
   is_active: true
+  locations:
+  - name: JCY
 snmp:
   location: Network to Code - JCY | NJ
   contact: John Smith

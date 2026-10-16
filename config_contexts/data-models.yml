@@ -28,4 +28,16 @@ snmp:
     ip: 10.1.1.1
     version: 2c
   location: Network to Code - NYC | NY
-
+dns:
+  domain: infra.ntc.com
+  name_servers:
+  - 198.51.100.1 # ns1/ns2 from the DNS-models design
+  - 198.51.100.2
+syslog:
+  level: informational
+  servers:
+  - ip: 10.125.1.171 # collector already used by the EOS and NX-OS templates
+ospf:
+  process_id: 1
+  area: 0.0.0.0
+  reference_bandwidth: 100000

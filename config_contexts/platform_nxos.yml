@@ -1,12 +1,14 @@
 ---
 _metadata:
   name: nxos
-  weight: 1000
+  weight: 3000
   description: Group Definitions for NXOS
   is_active: true
   platforms:
   - name: Cisco NX-OS
+  - name: cisco_nxos
 copp-profile: strict
+mgmt_gateway: 10.0.0.2
 password-strength-check: false
 snmp:
   community:
@@ -14,4 +16,5 @@ snmp:
     role: network-operator
   - name: secure
     role: network-admin
-
+syslog:
+  port: 7008

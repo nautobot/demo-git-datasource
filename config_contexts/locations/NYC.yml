@@ -2,8 +2,10 @@
 _metadata:
   name: NYC
   description: Config parameters for New York City
-  weight: 2000
+  weight: 3000
   is_active: true
+  locations:
+  - name: NYC
 snmp:
   location: Network to Code - NYC | NY
   contact: John Smith
